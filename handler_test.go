@@ -21,3 +21,35 @@ func TestHandler(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestServeMux(t *testing.T) {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(w, "<h1>Hello Bro</h1>")
+	})
+	mux.HandleFunc("/ar", func(w http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(w, "<h1>Nama Saya Aris</h1>")
+	})
+	mux.HandleFunc("/is", func(w http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(w, "<h1>Di Malam yang dingin</h1>")
+	})
+	mux.HandleFunc("/mah", func(w http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(w, "<h1>dan gelap sepi</h1>")
+	})
+	mux.HandleFunc("/mu/", func(w http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(w, "<h1>Maafkanlah Aku</h1>")
+	})
+	mux.HandleFunc("/mu/di/", func(w http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(w, "<h1>Hancurkan dirimu, Sumpah serapah.</h1>")
+	})
+	server := http.Server{
+		Addr:    "localhost:8080",
+		Handler: mux,
+	}
+
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
+
+}
